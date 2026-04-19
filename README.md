@@ -129,3 +129,30 @@ git push -u origin main
 
 - Use the **UP ARROW** and **DOWN ARROW** in the terminal to scroll through past commands.
 - Use `CTRL+f` to find (and replace) text within a file.
+
+## Change Summary
+
+### What I Changed
+I improved the rolling monitoring pipeline by adding new metrics and extending the analysis logic.I introduced things like:
+- error_rate
+- avg_latency (total latency dvided by requests)
+
+---
+
+### Why I Made the Change
+The original pipeline focused only on raw counts (requests, errors, and latency), which limited insight into system performance.
+
+These changes were made to:
+- Improve understanding of system reliability (error rate)
+- Measure efficiency more accurately (average latency)
+- Identify trends over time using smoothed rolling metrics instead of noisy raw values
+
+---
+
+### What I Observed After Running the Project
+After running the updated pipeline, several patterns became clearer:
+- Error rates increased during periods of higher request volume
+- Rolling error rate revealed a gradual upward trend that was not obvious in raw data
+- Average latency increased alongside higher traffic levels
+
+Overall, the system showed signs of performance lowering under heavier load, and the rolling metrics made these trends easier to detect and interpret.

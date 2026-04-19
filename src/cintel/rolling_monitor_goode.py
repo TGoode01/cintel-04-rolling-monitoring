@@ -101,7 +101,18 @@ def main() -> None:
     # Time-series analysis requires observations to be ordered.
     df = df.sort("timestamp")
 
+    # ----------------------------------------------------
+    # STEP 2.1: ADD DERIVED METRICS
+    # ----------------------------------------------------
+    df = df.with_columns(
+        [
+            (pl.col("errors") / pl.col("requests")).alias("error_rate"),
+            (pl.col("total_latency_ms") / pl.col("requests")).alias("avg_latency"),
+        ]
+    )
+
     LOG.info("Sorted records by timestamp")
+    LOG.info("Added derived metrics: error_rate and avg_latency")
 
     # ----------------------------------------------------
     # STEP 3: DEFINE ROLLING WINDOW RECIPES
